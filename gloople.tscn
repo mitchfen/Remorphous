@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmudtme71uihm"]
+
+[ext_resource type="Script" path="res://Gloople.cs" id="1_mmwfd"]
+[ext_resource type="Texture2D" uid="uid://di54bb0s3rxmp" path="res://art/enemySwimming_1.png" id="1_qm480"]
+[ext_resource type="Texture2D" uid="uid://pv3irg7c4tt0" path="res://art/enemySwimming_2.png" id="2_3afha"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ewhhy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qm480")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_3afha")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xcmbm"]
+radius = 20.0
+height = 52.0
+
+[node name="Gloople" type="RigidBody2D"]
+position = Vector2(-28, 129)
+gravity_scale = 0.0
+script = ExtResource("1_mmwfd")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_ewhhy")
+animation = &"move"
+frame = 1
+frame_progress = 0.651457
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(4.05312e-06, 0.499997)
+scale = Vector2(2.6, 1.95)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xcmbm")
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]

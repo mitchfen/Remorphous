@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://ud0sbxi0uyxe"]
+
+[ext_resource type="PackedScene" uid="uid://emxcyrdopxgd" path="res://player.tscn" id="1_glauq"]
+[ext_resource type="Script" path="res://Main.cs" id="1_ko4d1"]
+[ext_resource type="PackedScene" uid="uid://bmudtme71uihm" path="res://gloople.tscn" id="2_ytbdv"]
+
+[sub_resource type="Curve2D" id="Curve2D_mv05d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1280, 0, 0, 0, 0, 0, 1280, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ko4d1")
+GloopleScene = ExtResource("2_ytbdv")
+
+[node name="Player" parent="." instance=ExtResource("1_glauq")]
+position = Vector2(642, 364)
+
+[node name="Gloople" parent="." instance=ExtResource("2_ytbdv")]
+position = Vector2(-64, 288)
+
+[node name="GloopleTimer" type="Timer" parent="."]
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_mv05d")
+
+[node name="GloopleSpawnLocation" type="PathFollow2D" parent="Path2D"]
+
+[connection signal="body_entered" from="Player" to="." method="OnBodyEntered"]
+[connection signal="timeout" from="GloopleTimer" to="." method="OnGloopleTimerTimeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
+[connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
