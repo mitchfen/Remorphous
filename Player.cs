@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Remorphous;
+
 public partial class Player : Area2D
 {
     [Signal]

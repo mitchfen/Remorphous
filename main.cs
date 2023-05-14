@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Remorphous;
+
 public partial class Main : Node
 {
     [Export] public PackedScene GloopleScene { get; set; }

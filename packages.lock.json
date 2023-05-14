@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net6.0": {
+      "Godot.SourceGenerators": {
+        "type": "Direct",
+        "requested": "[4.0.2, )",
+        "resolved": "4.0.2",
+        "contentHash": "FH9W+m0rACy9a6vMfkEHYGtPQr7WNt0ha6pkD29BDrT6klLNM7mv2qvnLe3zCuNXfGP854jiP9ypIMoeE7OPKQ=="
+      },
+      "GodotSharp": {
+        "type": "Direct",
+        "requested": "[4.0.2, )",
+        "resolved": "4.0.2",
+        "contentHash": "0974lh3Pd/2zusla/RxLyAzpSbSzu6cOaNtI4+sE7yEP0ixXaR1CdtHROJzHhCmGY0yl7Ockh0j5KhTwXCIkVw=="
+      },
+      "GodotSharpEditor": {
+        "type": "Direct",
+        "requested": "[4.0.2, )",
+        "resolved": "4.0.2",
+        "contentHash": "RfJKBfywNTZxrWLkWTalL0Z5kCpKrjnZvxeQDmlbZXyMWo+ffQ5XJH+SWGesvFUH3D8kZy7sjekSpNAUvAA1GQ==",
+        "dependencies": {
+          "GodotSharp": "4.0.2"
+        }
+      }
+    }
+  }
+}

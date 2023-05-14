@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Remorphous;
+
 public partial class Gloople : RigidBody2D
 {
     public override void _Ready()
