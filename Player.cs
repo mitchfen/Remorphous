@@ -3,11 +3,9 @@ using System;
 
 namespace Remorphous;
 
-public partial class Player : Area2D
+public partial class Player : Node2D
 {
-    [Signal]
-    public delegate void HitEventHandler();
-    
+
     [Export]
     public int Speed = 400; // pixels/sec
 
@@ -19,8 +17,7 @@ public partial class Player : Area2D
     {
         Position = position;
         Show();
-        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
-        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+        GetNode<Area2D>("PlayerBody").GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
     }
     
     // Called when the node enters the scene tree for the first time.
@@ -66,7 +63,8 @@ public partial class Player : Area2D
 
         Position += _velocity * (float)timeBetweenFrames;
 
-        var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        var PlayerBody = GetNode<Area2D>("PlayerBody");
+        var animatedSprite2D = PlayerBody.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         if (_velocity.Length() > 0)
         {
@@ -83,15 +81,6 @@ public partial class Player : Area2D
             y: Mathf.Clamp(Position.Y, 0, _screenSize.Y)
         );
     }
-    
-    private void OnBodyEntered(PhysicsBody2D body)
-    {
-        Hide(); // Player disappears after being hit.
-        EmitSignal(SignalName.Hit);
 
-        // Must be deferred as we can't change physics properties on a physics callback.
-        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-    }
-    
-    
 }
+
