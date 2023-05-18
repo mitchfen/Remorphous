@@ -64,7 +64,6 @@ public partial class Main : Node
         gloople.LinearVelocity = velocity.Rotated(direction);
 
         // Spawn the mob by adding it to the Main scene.
-        GD.Print("Adding gloople");
         AddChild(gloople);
     }
 }

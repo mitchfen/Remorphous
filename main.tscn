@@ -36,7 +36,6 @@ curve = SubResource("Curve2D_mv05d")
 
 [node name="GloopleSpawnLocation" type="PathFollow2D" parent="Path2D"]
 
-[connection signal="body_entered" from="Player" to="." method="OnBodyEntered"]
 [connection signal="timeout" from="GloopleTimer" to="." method="OnGloopleTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]

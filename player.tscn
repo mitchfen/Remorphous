@@ -1,9 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://emxcyrdopxgd"]
+[gd_scene load_steps=10 format=3 uid="uid://emxcyrdopxgd"]
 
 [ext_resource type="Texture2D" uid="uid://db6gamqmross2" path="res://art/playerGrey_walk1.png" id="1_climx"]
 [ext_resource type="Script" path="res://Player.cs" id="1_lfxmj"]
 [ext_resource type="Texture2D" uid="uid://ll7au0xhiwtk" path="res://art/playerGrey_walk2.png" id="2_xefwh"]
+[ext_resource type="Script" path="res://PlayerBody.cs" id="4_8w5ro"]
 [ext_resource type="Script" path="res://Sword.cs" id="4_4434a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ahibc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_climx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yed5b"]
+size = Vector2(400.932, 317.568)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_srp7w"]
 animations = [{
@@ -23,31 +38,8 @@ animations = [{
 radius = 54.0
 height = 136.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ahibc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_climx")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yed5b"]
-size = Vector2(400.932, 317.568)
-
-[node name="Player" type="Area2D"]
+[node name="Player" type="Node2D"]
 script = ExtResource("1_lfxmj")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_srp7w")
-animation = &"walk"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.5, 0.5)
-shape = SubResource("CapsuleShape2D_kkcx3")
 
 [node name="Sword" type="Area2D" parent="."]
 script = ExtResource("4_4434a")
@@ -65,4 +57,17 @@ rotation = 0.785398
 scale = Vector2(0.037037, 0.374074)
 shape = SubResource("RectangleShape2D_yed5b")
 
+[node name="PlayerBody" type="Area2D" parent="."]
+script = ExtResource("4_8w5ro")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerBody"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_srp7w")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_kkcx3")
+
 [connection signal="body_entered" from="Sword" to="Sword" method="OnBodyEntered"]
+[connection signal="body_entered" from="PlayerBody" to="PlayerBody" method="OnBodyEntered"]
