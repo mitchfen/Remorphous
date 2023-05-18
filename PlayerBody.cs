@@ -12,6 +12,7 @@ public partial class PlayerBody : Area2D
         Hide();
         GetParent().GetNode<Area2D>("Sword").Hide();
 
+        // Send hit signal up to parent node
         EmitSignal(SignalName.Hit);
 
         // Must be deferred as we can't change physics properties on a physics callback.

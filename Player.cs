@@ -6,6 +6,9 @@ namespace Remorphous;
 public partial class Player : Node2D
 {
 
+    [Signal]
+    public delegate void HitEventHandler();
+    
     [Export]
     public int Speed = 400; // pixels/sec
 
@@ -33,6 +36,12 @@ public partial class Player : Node2D
         RespondToMovementKeys(timeBetweenFrames);
     }
 
+    // Emit hit signal visible by Main
+    private void EmitHit()
+    {
+        EmitSignal(SignalName.Hit);
+    }
+    
     private void RespondToMovementKeys(double timeBetweenFrames)
     {
         var direction = 0;
@@ -83,4 +92,3 @@ public partial class Player : Node2D
     }
 
 }
-
