@@ -8,10 +8,13 @@ public partial class PlayerBody : Area2D
     
     private void OnBodyEntered(PhysicsBody2D body)
     {
-        Hide(); // Player disappears after being hit.
+        Hide();
+        GetParent().GetNode<Area2D>("Sword").Hide();
+
         EmitSignal(SignalName.Hit);
 
         // Must be deferred as we can't change physics properties on a physics callback.
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
         GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
     }
 }
