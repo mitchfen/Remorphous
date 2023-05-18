@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using static Remorphous.HelperFunctions;
 
 namespace Remorphous;
 
@@ -14,10 +14,12 @@ public partial class Main : Node
         NewGame();
     }
 
+    // Triggered by Hit signal from Player
     private void GameOver()
     {
         GetNode<Timer>("GloopleTimer").Stop();
         GetNode<Timer>("ScoreTimer").Stop();
+        Print("GAME OVER");
     }
 
     private void NewGame()
