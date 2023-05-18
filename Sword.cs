@@ -1,17 +1,16 @@
 using Godot;
-using static Godot.GD;
+using static Remorphous.HelperFunctions;
 
 namespace Remorphous;
 
 public partial class Sword : Area2D
 {
-    private void OnBodyEntered(PhysicsBody2D body)
+    private void OnBodyEntered(CanvasItem body)
     {
-        print("SWORD HIT");
+        Print("SWORD HIT");
+        body.Hide();
+        body.QueueFree();
     }
 
-    private static void print(string msg)
-    {
-        Print(msg);
-    }
+
 }

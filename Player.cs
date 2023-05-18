@@ -63,8 +63,8 @@ public partial class Player : Node2D
 
         Position += _velocity * (float)timeBetweenFrames;
 
-        var PlayerBody = GetNode<Area2D>("PlayerBody");
-        var animatedSprite2D = PlayerBody.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        var playerBody = GetNode<Area2D>("PlayerBody");
+        var animatedSprite2D = playerBody.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         if (_velocity.Length() > 0)
         {
