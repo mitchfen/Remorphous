@@ -26,6 +26,10 @@ window/size/resizable=false
 
 project/assembly_name="Remorphous"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_right={
