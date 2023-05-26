@@ -20,6 +20,7 @@ public partial class Main : Node
         GetNode<Timer>("GloopleTimer").Stop();
         GetNode<Timer>("ScoreTimer").Stop();
         Print("GAME OVER");
+        Print($"Score: {_score}");
     }
 
     private void NewGame()
@@ -47,7 +48,7 @@ public partial class Main : Node
     private void OnGloopleTimerTimeout()
     {
         // Create a new instance of the Mob scene.
-        Gloople gloople = GloopleScene.Instantiate<Gloople>();
+        var gloople = GloopleScene.Instantiate<Gloople>();
 
         // Choose a random location on Path2D.
         var mobSpawnLocation = GetNode<PathFollow2D>("Path2D/GloopleSpawnLocation");

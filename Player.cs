@@ -10,7 +10,7 @@ public partial class Player : Node2D
     public delegate void HitEventHandler();
     
     [Export]
-    public int Speed = 400; // pixels/sec
+    public int Speed = 250; // pixels/sec
 
     private Vector2 _screenSize; 
     private Vector2 _velocity = Vector2.Zero;
@@ -33,7 +33,7 @@ public partial class Player : Node2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double timeBetweenFrames)
     { 
-        RespondToMovementKeys(timeBetweenFrames);
+        FollowMouse(timeBetweenFrames);
     }
 
     // Emit hit signal visible by Main
@@ -42,39 +42,25 @@ public partial class Player : Node2D
         EmitSignal(SignalName.Hit);
     }
     
-    private void RespondToMovementKeys(double timeBetweenFrames)
+    private void FollowMouse(double timeBetweenFrames)
     {
-        var direction = 0;
         _velocity = Vector2.Zero;
-
-        if (Input.IsActionPressed("move_left"))
+        var mousePosition = GetGlobalMousePosition();
+        var normalizedDirection = Vector2.Zero;
+        var direction = Vector2.Zero;
+        direction = (mousePosition - Position);
+        normalizedDirection = direction.Normalized();
+        // Make player follow mouse
+        if ( direction.Length() > 30 ) // TODO: bad magic number
         {
-            direction = -1;
-        }
-        else if (Input.IsActionPressed("move_right"))
-        {
-            direction = 1;
-        }
-
-        Rotation += _angularSpeed * direction * (float)timeBetweenFrames;
-
-        if (Input.IsActionPressed("move_up"))
-        {
-            _velocity = Vector2.Up.Rotated(Rotation) * Speed;
+            Rotation = mousePosition.AngleTo(normalizedDirection) + (float)(Math.PI / 2);
+            _velocity = normalizedDirection * Speed;
+            Position += _velocity * (float)timeBetweenFrames;
         }
         
-        /* TODO: Backwards movement?
-        else if (Input.IsActionPressed("move_down"))
-        {
-            _velocity = Vector2.Down.Rotated(Rotation) * Speed;
-        }
-        */
-
-        Position += _velocity * (float)timeBetweenFrames;
-
+        // Set animation based on velocity
         var playerBody = GetNode<Area2D>("PlayerBody");
         var animatedSprite2D = playerBody.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-
         if (_velocity.Length() > 0)
         {
             animatedSprite2D.Play();
@@ -83,7 +69,7 @@ public partial class Player : Node2D
         {
             animatedSprite2D.Stop();
         }
-        
+
         // Make sure the player doesn't leave the screen
         Position = new Vector2(
             x: Mathf.Clamp(Position.X, 0, _screenSize.X),
